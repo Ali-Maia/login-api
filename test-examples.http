@@ -1,0 +1,109 @@
+### Testes da API REST de Login
+
+# 1. Registrar novo usuário
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "João Silva",
+  "email": "joao@example.com",
+  "password": "Senha123"
+}
+
+###
+
+# 2. Fazer login com sucesso
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "Senha123"
+}
+
+###
+
+# 3. Tentar login com senha incorreta (1ª tentativa)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "senhaerrada"
+}
+
+###
+
+# 4. Tentar login com senha incorreta (2ª tentativa)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "outrasenha"
+}
+
+###
+
+# 5. Tentar login com senha incorreta (3ª tentativa - deve bloquear)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "maisumasenha"
+}
+
+###
+
+# 6. Tentar login com conta bloqueada
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "joao@example.com",
+  "password": "Senha123"
+}
+
+###
+
+# 7. Redefinir senha
+POST http://localhost:3000/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "joao@example.com"
+}
+
+###
+
+# 8. Obter perfil do usuário (com token)
+GET http://localhost:3000/api/users/profile
+Authorization: Bearer SEU_TOKEN_JWT_AQUI
+
+###
+
+# 9. Atualizar perfil do usuário
+PUT http://localhost:3000/api/users/profile
+Content-Type: application/json
+Authorization: Bearer SEU_TOKEN_JWT_AQUI
+
+{
+  "name": "João Silva Santos"
+}
+
+###
+
+# 10. Obter estatísticas (debug)
+GET http://localhost:3000/api/users/stats
+Authorization: Bearer SEU_TOKEN_JWT_AQUI
+
+###
+
+# 11. Health check
+GET http://localhost:3000/health
+
+###
+
+# 12. Documentação Swagger
+GET http://localhost:3000/api-docs 
