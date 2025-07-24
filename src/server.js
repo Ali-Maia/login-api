@@ -5,6 +5,7 @@ const rateLimit = require('express-rate-limit');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerOptions = require('./utils/swagger');
+const cookieParser = require('cookie-parser');
 
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
@@ -32,6 +33,7 @@ app.use(limiter);
 // Middleware para parsing JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Rotas
 app.use('/api/auth', authRoutes);

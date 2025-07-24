@@ -113,6 +113,10 @@ router.post('/register', validateRegister, async (req, res) => {
  *                 type: string
  *                 description: Senha do usuário
  *                 example: "Senha123"
+ *               rememberMe:
+ *                 type: boolean
+ *                 description: Se verdadeiro, mantém o usuário logado (cookie persistente)
+ *                 example: true
  *     responses:
  *       200:
  *         description: Login realizado com sucesso
@@ -146,10 +150,19 @@ router.post('/register', validateRegister, async (req, res) => {
  */
 router.post('/login', validateLogin, async (req, res) => {
   try {
-    const { email, password } = req.body;
-    
+    const { email, password, rememberMe } = req.body;
     const result = await AuthService.login(email, password);
-    
+
+    // Se rememberMe, definir cookie persistente
+    if (rememberMe) {
+      res.cookie('token', result.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 30 * 24 * 60 * 60 * 1000 // 30 dias
+      });
+    }
+
     res.json({
       message: 'Login realizado com sucesso',
       ...result
@@ -161,14 +174,12 @@ router.post('/login', validateLogin, async (req, res) => {
         message: error.message
       });
     }
-    
     if (error.message.includes('bloqueada')) {
       return res.status(403).json({
         error: 'Conta bloqueada',
         message: error.message
       });
     }
-    
     res.status(500).json({
       error: 'Erro interno do servidor',
       message: error.message

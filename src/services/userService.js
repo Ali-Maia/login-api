@@ -150,6 +150,31 @@ class UserService {
   }
 
   /**
+   * Retorna uma dica de senha (simulado)
+   */
+  static getPasswordHint(email) {
+    const user = this.findUserByEmail(email);
+    if (!user) {
+      throw new Error('Usuário não encontrado');
+    }
+    // Simulação: retorna os 2 primeiros caracteres da senha original (NÃO FAÇA ISSO EM PRODUÇÃO)
+    // Aqui, como a senha está criptografada, retornamos uma mensagem genérica
+    return { hint: 'A senha contém pelo menos 6 caracteres, incluindo maiúsculas, minúsculas e números.' };
+  }
+
+  /**
+   * Exclui um usuário pelo ID
+   */
+  static deleteUserById(userId) {
+    const userIndex = users.findIndex(user => user.id === userId);
+    if (userIndex === -1) {
+      throw new Error('Usuário não encontrado');
+    }
+    users.splice(userIndex, 1);
+    return { message: 'Usuário excluído com sucesso' };
+  }
+
+  /**
    * Obtém estatísticas dos usuários (para debug)
    */
   static getStats() {

@@ -166,4 +166,46 @@ router.get('/stats', authenticateToken, async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/users/delete:
+ *   delete:
+ *     summary: Excluir usuário autenticado
+ *     tags: [Usuários]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Usuário excluído com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       401:
+ *         description: Não autorizado
+ *       404:
+ *         description: Usuário não encontrado
+ */
+router.delete('/delete', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const result = UserService.deleteUserById(userId);
+    res.json(result);
+  } catch (error) {
+    if (error.message === 'Usuário não encontrado') {
+      return res.status(404).json({
+        error: 'Usuário não encontrado',
+        message: error.message
+      });
+    }
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      message: error.message
+    });
+  }
+});
+
 module.exports = router; 
