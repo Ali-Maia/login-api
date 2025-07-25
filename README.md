@@ -54,6 +54,7 @@ npm start
 ### Usuários (Protegido)
 - `GET /api/users/profile` - Obter perfil do usuário
 - `PUT /api/users/profile` - Atualizar perfil
+- `DELETE /api/users/delete` - Excluir usuário autenticado
 
 ### Documentação
 - `GET /api-docs` - Documentação Swagger
@@ -95,13 +96,22 @@ curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "joao@example.com",
-    "password": "senha123"
+    "password": "senha123",
+    "rememberMe": true
   }'
 ```
+
+Se 'rememberMe' for true, um cookie persistente chamado 'token' será enviado na resposta e o usuário permanecerá logado por 30 dias.
 
 ### Acessar perfil (com token)
 ```bash
 curl -X GET http://localhost:3000/api/users/profile \
+  -H "Authorization: Bearer SEU_TOKEN_JWT"
+```
+
+### Excluir usuário autenticado
+```bash
+curl -X DELETE http://localhost:3000/api/users/delete \
   -H "Authorization: Bearer SEU_TOKEN_JWT"
 ```
 
@@ -117,6 +127,7 @@ Acesse a documentação interativa da API em:
 - Rate limiting para prevenir ataques
 - Headers de segurança com Helmet
 - Validação de dados de entrada
+- **Opção "Lembrar Senha" (manter logado):** Se ativada, o token JWT é enviado em um cookie httpOnly persistente válido por 30 dias.
 
 ## Armazenamento
 

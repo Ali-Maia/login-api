@@ -61,3 +61,7 @@ jspm_packages/
 .Trashes
 ehthumbs.db
 Thumbs.db 
+
+#Mochawesome
+mochawesome-report
+mochawesome-reports
