@@ -1,7 +1,7 @@
 const request = require('supertest')
-const baseUrl = process.env.BASE_URL
 
-require('dotenv').config()
+const { baseUrl } = require('../config/environment')
+
 
 const obterToken = async (name, email, password) => {
   const postLogin = { 

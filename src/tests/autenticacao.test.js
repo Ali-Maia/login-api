@@ -1,10 +1,12 @@
 const request = require('supertest')
 const { expect } = require('chai')
-require('dotenv').config()
+
+const { baseUrl } = require('../config/environment')
+
 const { cadastrarUsuario } = require('../helpers/auth')
 const gerarUsuario = require('../helpers/gerarUsuario')
 
-const baseUrl = process.env.BASE_URL
+
 const usuario = gerarUsuario()
 const login = { ...usuario }
 
