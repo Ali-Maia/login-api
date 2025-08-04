@@ -6,10 +6,8 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerOptions = require('./utils/swagger');
 const cookieParser = require('cookie-parser');
-
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -20,15 +18,17 @@ const specs = swaggerJsdoc(swaggerOptions);
 app.use(helmet());
 app.use(cors());
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // limite de 100 requests por IP
-  message: {
-    error: 'Muitas tentativas. Tente novamente em 15 minutos.'
-  }
-});
-app.use(limiter);
+// Rate limiting - APENAS em produção
+if (process.env.NODE_ENV !== 'test') {
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutos
+    max: 200, // Limite de 110 requisições por IP
+    message: {
+      error: 'Muitas tentativas. Tente novamente em 15 minutos.'
+    }
+  });
+  app.use(limiter);
+}
 
 // Middleware para parsing JSON
 app.use(express.json());
@@ -74,4 +74,4 @@ app.listen(PORT, () => {
   console.log(`🔍 Health check: http://localhost:${PORT}/health`);
 });
 
-module.exports = app; 
+module.exports = app;

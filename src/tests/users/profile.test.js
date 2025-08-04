@@ -1,13 +1,13 @@
 const request = require('supertest')
 const { expect } = require('chai')
 
-const { baseUrl } = require('../config/environment')
-
-const { cadastrarUsuario } = require('../helpers/auth')
-const gerarUsuario = require('../helpers/gerarUsuario')
+const { baseUrl } = require('../../config/environment')
+const { cadastrarUsuario } = require('../../helpers/auth')
+const gerarUsuario = require('../../helpers/gerarUsuario')
 
 const usuario = gerarUsuario()
 const login = { ...usuario }
+
 
 
 describe('Usuários', () => {

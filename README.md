@@ -1,145 +1,86 @@
 # API REST de Login
 
-Uma API REST simples de login criada para estudos de teste de software.
+API REST criada para estudos de testes de software com autenticação via JWT.
 
-## Funcionalidades
+---
 
-- ✅ Login bem-sucedido com email e senha
-- ✅ Retorno adequado para login inválido
-- ✅ Bloqueio de conta após 3 tentativas
-- ✅ Redefinição de senha via endpoint (simulado)
-- ✅ Registro de novos usuários
-- ✅ Armazenamento simples de usuários em memória
-- ✅ Uso de JWT para autenticação
-- ✅ Documentação Swagger
+## Configuração Inicial
 
-## Tecnologias Utilizadas
+1. Clone o projeto:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   cd <nome-da-pasta>
+   ```
 
-- **Node.js** - Runtime JavaScript
-- **Express** - Framework web
-- **JWT** - Autenticação via tokens
-- **bcryptjs** - Criptografia de senhas
-- **Swagger** - Documentação da API
-- **Helmet** - Segurança
-- **CORS** - Cross-Origin Resource Sharing
-- **express-validator** - Validação de dados
-
-## Instalação
-
-1. Clone o repositório
 2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+
+3. Crie um arquivo `.env` na raiz do projeto com o seguinte conteúdo:
+   ```env
+   BASE_URL='http://localhost:3000'
+   ```
+
+---
+
+## Executando o Projeto
+
+- **Ambiente de Produção:**
+  ```bash
+  npm start
+  ```
+  Inicia o servidor normalmente com Node.js em `http://localhost:3000`.
+
+- **Ambiente de Desenvolvimento (com hot reload):**
+  ```bash
+  npm run dev
+  ```
+  Usa `nodemon` para reiniciar o servidor automaticamente a cada alteração no código.
+
+**Atenção:** o arquivo `src/server.js` possui um *Rate Limiting* que bloqueia IPs após **200 requisições**. Durante testes, isso pode causar falhas. Monitore a quantidade de requisições ou aumente esse limite se necessário.
+
+---
+
+## Testes Automatizados
+
+### Rodar todos os testes:
 ```bash
-npm install
+npm run test
 ```
 
-## Execução
-
-### Desenvolvimento (com hot reload)
+### Rodar testes por grupo:
 ```bash
-npm run dev
+npm run test:auth     # Testes de autenticação
+npm run test:users    # Testes de usuários
 ```
 
-### Produção
+### Rodar testes específicos:
 ```bash
-npm start
+npm run test:auth:login     # Login
+npm run test:auth:register  # Registro
+npm run test:auth:reset     # Redefinição de senha
 ```
 
-## Endpoints
+> Os testes utilizam Mocha + Supertest + Chai. O relatório é gerado automaticamente em formato HTML com o mochawesome.
 
-### Autenticação
-- `POST /api/auth/register` - Registrar novo usuário
-- `POST /api/auth/login` - Fazer login
-- `POST /api/auth/reset-password` - Redefinir senha (simulado)
+---
 
-### Usuários (Protegido)
-- `GET /api/users/profile` - Obter perfil do usuário
-- `PUT /api/users/profile` - Atualizar perfil
-- `DELETE /api/users/delete` - Excluir usuário autenticado
+## Tecnologias
 
-### Documentação
-- `GET /api-docs` - Documentação Swagger
+### API em:
+- Node.js
+- Express
+- JWT
+- Helmet
+- CORS
+- express-validator
+- Swagger
 
-## Estrutura do Projeto
+### Testes com:
+- Mocha
+- Supertest
+- Chai
 
-```
-src/
-├── server.js          # Servidor principal
-├── routes/
-│   ├── auth.js        # Rotas de autenticação
-│   └── users.js       # Rotas de usuários
-├── middleware/
-│   ├── auth.js        # Middleware de autenticação
-│   └── validation.js  # Middleware de validação
-├── services/
-│   ├── authService.js # Lógica de autenticação
-│   └── userService.js # Lógica de usuários
-└── utils/
-    └── swagger.js     # Configuração Swagger
-```
-
-## Exemplos de Uso
-
-### Registrar usuário
-```bash
-curl -X POST http://localhost:3000/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "João Silva",
-    "email": "joao@example.com",
-    "password": "senha123"
-  }'
-```
-
-### Fazer login
-```bash
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
-    "email": "joao@example.com",
-    "password": "senha123",
-    "rememberMe": true
-  }'
-```
-
-Se 'rememberMe' for true, um cookie persistente chamado 'token' será enviado na resposta e o usuário permanecerá logado por 30 dias.
-
-### Acessar perfil (com token)
-```bash
-curl -X GET http://localhost:3000/api/users/profile \
-  -H "Authorization: Bearer SEU_TOKEN_JWT"
-```
-
-### Excluir usuário autenticado
-```bash
-curl -X DELETE http://localhost:3000/api/users/delete \
-  -H "Authorization: Bearer SEU_TOKEN_JWT"
-```
-
-## Documentação Swagger
-
-Acesse a documentação interativa da API em:
-**http://localhost:3000/api-docs**
-
-## Segurança
-
-- Senhas são criptografadas com bcrypt
-- Tokens JWT para autenticação
-- Rate limiting para prevenir ataques
-- Headers de segurança com Helmet
-- Validação de dados de entrada
-- **Opção "Lembrar Senha" (manter logado):** Se ativada, o token JWT é enviado em um cookie httpOnly persistente válido por 30 dias.
-
-## Armazenamento
-
-Os dados são armazenados em memória durante a execução da aplicação. Ao reiniciar o servidor, os dados são perdidos.
-
-## Status Codes
-
-- `200` - Sucesso
-- `201` - Criado com sucesso
-- `400` - Dados inválidos
-- `401` - Não autorizado
-- `403` - Acesso negado (conta bloqueada)
-- `404` - Não encontrado
-- `429` - Muitas tentativas
-- `500` - Erro interno do servidor 
+### Relatório com:
+- Mochawesome
