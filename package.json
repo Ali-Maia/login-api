@@ -8,10 +8,11 @@
     "dev": "nodemon src/server.js",
     "test": "mocha ./src/tests/**/*.test.js --reporter mochawesome --timeout 2000",
     "test:auth": "mocha ./src/tests/auth/**/*.test.js --reporter mochawesome --timeout 2000",
-    "test:users": "mocha ./src/tests/users/**/*.test.js --reporter mochawesome --timeout 2000",
     "test:auth:login": "mocha ./src/tests/auth/login.test.js --reporter mochawesome --timeout 2000",
     "test:auth:register": "mocha ./src/tests/auth/register.test.js --reporter mochawesome --timeout 2000",
-    "test:auth:reset": "mocha ./src/tests/auth/reset-password.test.js --reporter mochawesome --timeout 2000"
+    "test:auth:reset": "mocha ./src/tests/auth/reset-password.test.js --reporter mochawesome --timeout 2000",
+    "test:users": "mocha ./src/tests/users/**/*.test.js --reporter mochawesome --timeout 2000",
+    "test:users:profile": "mocha ./src/tests/users/profile.test.js --reporter mochawesome --timeout 2000"
   },
   "keywords": [
     "api",

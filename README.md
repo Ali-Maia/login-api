@@ -8,8 +8,8 @@ API REST criada para estudos de testes de software com autenticação via JWT.
 
 1. Clone o projeto:
    ```bash
-   git clone <URL_DO_REPOSITORIO>
-   cd <nome-da-pasta>
+   git clone https://github.com/Ali-Maia/login-api.git
+   cd login-api
    ```
 
 2. Instale as dependências:
