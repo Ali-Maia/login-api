@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Admin Usuários</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h3 class="center-align">Login</h3>
+    <div class="row">
+      <form class="col s12" id="loginForm">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="email" type="email" class="validate" required>
+            <label for="email">Email</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="password" type="password" class="validate" required>
+            <label for="password">Senha</label>
+          </div>
+        </div>
+        <div class="row">
+          <label>
+            <input type="checkbox" id="rememberMe" />
+            <span>Lembrar-me</span>
+          </label>
+        </div>
+        <div class="row">
+          <button class="btn waves-effect waves-light" type="submit">Entrar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <div class="row">
+          <a href="#" id="forgotPassword">Esqueci minha senha</a>
+        </div>
+        <div class="row">
+          <a href="register.html">Não tem conta? Cadastre-se</a>
+        </div>
+        <div class="row">
+          <span id="loginError" class="red-text"></span>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
