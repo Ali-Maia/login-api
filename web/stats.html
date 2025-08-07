@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estatísticas de Usuários</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h4 class="center-align">Estatísticas de Usuários</h4>
+    <div id="statsCard" class="card">
+      <div class="card-content">
+        <p><b>Total de usuários:</b> <span id="totalUsers">-</span></p>
+        <p><b>Contas bloqueadas:</b> <span id="blockedAccounts">-</span></p>
+        <p><b>Emails bloqueados:</b></p>
+        <ul id="blockedEmails" class="collection"></ul>
+      </div>
+      <div class="card-action">
+        <a href="profile.html">Voltar ao Perfil</a>
+      </div>
+    </div>
+    <div id="statsError" class="red-text center-align"></div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="stats.js"></script>
+</body>
+</html>
